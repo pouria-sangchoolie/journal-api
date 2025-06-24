@@ -2,7 +2,6 @@
 
 namespace App\Http\DTO;
 
-use Brick\Math\BigInteger;
 use Spatie\LaravelData\Data;
 
 class ArticleDto extends Data

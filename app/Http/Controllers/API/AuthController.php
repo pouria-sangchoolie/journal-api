@@ -4,21 +4,18 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use App\Http\DTO\ArticleDto;
+use App\Http\DTO\ProfileDto;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
-
         
         $user = User::create([
             'name' => $request->name,
@@ -59,6 +56,6 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json( ProfileDto::from( $request->user() ) );
     }
 }
